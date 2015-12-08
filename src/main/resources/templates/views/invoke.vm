@@ -1,0 +1,90 @@
+#parse("header.vm")
+<div id="wrapper">
+	#parse("leftmenu.vm")
+	<div id="page-wrapper" class="gray-bg dashbard-1">
+		<!--right header-->
+		#parse("rightheader.vm")
+		<div id="invoke_t_div" class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-12">
+					<table id="invokechain_table" class="easyui-treegrid" style="width:100%;"></table>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="pull-right">
+				10GB of <strong>250GB</strong>
+				Free.
+			</div>
+			<div> <strong>Copyright</strong>
+				Example Company &copy; 2014-2015
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Mainly scripts -->
+<script src="js/jquery-2.1.1.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- Peity -->
+<script src="js/plugins/peity/jquery.peity.min.js"></script>
+
+<!-- easyui -->
+<script src="js/plugins/easyui/jquery.easyui.min.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="js/inspinia.js"></script>
+<script src="js/plugins/pace/pace.min.js"></script>
+
+<script src="js/plugins/jquery-ui/jquery-ui.min.js"></script>
+
+<script>
+        $(document).ready(function () {
+			var treegrid = $("#invokechain_table").treegrid({
+							title: '服务调用链',
+							url: '/invokemain',
+							method: 'get',
+							height: window.innerHeight-140,
+							nowrap: true,//数据过长时自动截取
+							striped: true,//交替显示背景色
+							collapsible: false, //显示可折叠按钮
+							singleSelect: true,//只能选择单行
+							fitColumns: true,//允许随父容器自动伸缩
+							pagination: true, //允许分页
+							rownumbers: true, //显示行号
+							editable:true,
+							animate: true,
+							idField:'id',
+							treeField:'application',
+							iconCls: 'icon-save', //图标
+							loadMsg: '请稍后,加载中……',
+							queryParams: {},
+							columns: [[
+						    	{field:'application', title: "应用名称", width: 150, align: 'left', sortable: true},    
+						    	{field:'ip', title: "ip地址", width: 80, align: 'center', sortable: true},
+						    	{field:'type', title: "类型", width: 80, align: 'center', sortable: true},
+							    {field:'status', title: "状态", width: 50, align: 'center', sortable: true},  
+							    {field:'method', title: "服务/方法", width: 200, align: 'left', sortable: true},
+							    {field:'timeelapsed', title: "调用时间", width: 50, align: 'left', sortable: true},
+							]],
+							onBeforeExpand:function(row, param){
+								if(row){
+									$(this).treegrid('options').url="/invokedetail";
+								}
+								return true; 
+							},
+							 onExpand : function(row){
+								 var children = $("#invokechain_table").treegrid('getChildren',row.id);
+								 if(children.length<=0){
+								 	row.leaf=true;
+								 	$("#invokechain_table").treegrid('refresh', row.id);
+								 }
+							}
+						});
+            $('#invoke_t_div').addClass("animated").addClass("fadeInRight");
+        });
+
+</script>
+#parse("footer.vm")
