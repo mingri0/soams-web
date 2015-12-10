@@ -1,7 +1,10 @@
 package sckj.soams.service;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +40,22 @@ public class InvokeChainServiceTest {
 	public void testGetInvokeDetail(){
 //		List<InvokeBean> ibList = service.getInvokeDetail("1");
 //		System.out.println(JSONObject.toJSONString(ibList));
+	}
+	@Test
+	public void testGetLastInvokeChainDt(){
+		String dt = service.getLastInvokeChain();
+		System.out.println(dt);
+		assertTrue(StringUtils.isNotBlank(dt));
+	}
+	
+	@Test
+	public void testGetInvokeCount() {
+		int s = service.getInvokeCount("2015-12-08 15:34:20");
+		System.out.println("all="+s);
+	}
+	@Test
+	public void getInvokeErrorCount() {
+		int s = service.getInvokeErrorCount("2015-12-08 15:34:20");
+		System.out.println("error="+s);
 	}
 }

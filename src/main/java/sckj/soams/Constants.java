@@ -8,6 +8,10 @@ public class Constants {
 	
 	public static final Map<Integer,String> SERVICE_INVOKE_CHAIN;
 	
+	public static final String CHART_INTERVAL_REAL = "1";//实时
+	
+	public static final String CHART_INTERVAL_DAY = "2";//24小时之内
+	
 	public static Map<Integer, String> invokeOrder(String application) {
 		switch (application) {
 		case "EBS":

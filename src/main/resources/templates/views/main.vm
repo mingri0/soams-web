@@ -128,7 +128,7 @@
 <script src="js/plugins/chartJs/Chart.min.js"></script>
 
 <!-- Toastr -->
-<script src="js/plugins/toastr/toastr.min.js"></script>
+<script src="js/plugins/toastr/toastr.js"></script>
 
 <script>
     $(document).ready(function() {

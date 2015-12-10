@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -155,7 +156,28 @@ public interface InvokeChainMapper {
         @Result(column="createdt", property="createdt", jdbcType=JdbcType.TIMESTAMP)
     })
 	List<InvokeChain> selectInvokeChainRecordsByPage(PageBean pb);
-
+    
+    @Select({
+    	"SELECT * FROM invokechain  WHERE rpcid='0.1' AND TYPE='CONTROLLER' order by cast(replace(timeelapsed,' ms','') as SIGNED) desc limit ${start},${end}"
+    })
+    @Results({
+        @Result(column="invoke_seq", property="invoke_seq", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="invoke_dt", property="invoke_dt", jdbcType=JdbcType.VARCHAR),
+        @Result(column="application", property="application", jdbcType=JdbcType.VARCHAR),
+        @Result(column="fromip", property="fromip", jdbcType=JdbcType.VARCHAR),
+        @Result(column="ip", property="ip", jdbcType=JdbcType.VARCHAR),
+        @Result(column="traceid", property="traceid", jdbcType=JdbcType.VARCHAR),
+        @Result(column="fromrpcid", property="fromrpcid", jdbcType=JdbcType.VARCHAR),
+        @Result(column="rpcid", property="rpcid", jdbcType=JdbcType.VARCHAR),
+        @Result(column="method", property="method", jdbcType=JdbcType.VARCHAR),
+        @Result(column="status", property="status", jdbcType=JdbcType.VARCHAR),
+        @Result(column="type", property="type", jdbcType=JdbcType.VARCHAR),
+        @Result(column="requesturl", property="requesturl", jdbcType=JdbcType.VARCHAR),
+        @Result(column="timeelapsed", property="timeelapsed", jdbcType=JdbcType.VARCHAR),
+        @Result(column="createdt", property="createdt", jdbcType=JdbcType.TIMESTAMP)
+    })
+    List<InvokeChain> selectInvokeSlowRecordsByPage(PageBean pb);
+    
     @Select({
     	"select a.*,substring_index(a.rpcid,'.',1) lev,substring_index(a.rpcid,'.',-1) ind from invokechain a,(select traceid,rpcid from invokechain where",
     	"invoke_seq=#{invokeseq,jdbcType=BIGINT}) b where a.traceid=b.traceid",
@@ -180,4 +202,20 @@ public interface InvokeChainMapper {
         @Result(column="ind", property="ind", jdbcType=JdbcType.VARCHAR)
     })
 	List<InvokeChainBean> selectInvokeChainBySeq(Long invokeseq);
+    
+    @Select({
+    	"select max(invoke_dt) invoke_dt from invokechain"
+    })
+	String getLastInvokeChainDt();
+    
+    @Select({
+    	"select count(*) cont from invokechain where invoke_dt between '${category}:00' and '${category}:59' "
+    })
+	int getInvokeCount(@Param("category") String category);
+    
+    @Select({
+    	"select count(*) cont from invokechain a where invoke_dt between '${category}:00' and '${category}:59' and ",
+    	" exists(select 1 from invokechain where traceid=a.traceid and status!='OK') "
+    })
+	int getInvokeErrorCount(@Param("category") String category);
 }

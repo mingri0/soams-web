@@ -38,7 +38,7 @@ public class InvokeChainService {
 
 	public List<InvokeBean> getInvokeMain(PageBean pb) {
 		List<InvokeBean> ibList = new ArrayList<InvokeBean>();
-		List<InvokeChain> icList = getInvokeChainRecordsByPage(pb);
+		List<InvokeChain> icList = getInvokeSlow(pb);
 		for (InvokeChain ic : icList) {
 			InvokeBean ib = new InvokeBean();
 			ib.setApplication(ic.getApplication());
@@ -196,6 +196,22 @@ public class InvokeChainService {
 			}
 		}
 		return sicbList;
+	}
+
+	public String getLastInvokeChain() {
+		return mapper.getLastInvokeChainDt();
+	}
+
+	public Integer getInvokeCount(String category) {
+		return mapper.getInvokeCount(category.substring(0,16));
+	}
+	
+	public Integer getInvokeErrorCount(String category) {
+		return mapper.getInvokeErrorCount(category.substring(0,16));
+	}
+
+	public List<InvokeChain> getInvokeSlow(PageBean pb) {
+		return mapper.selectInvokeSlowRecordsByPage(pb);
 	}
 
 }

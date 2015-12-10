@@ -20,4 +20,9 @@ public class InvokeController {
 		return "views/invoke";
 	}
 	
+	@RequestMapping("/invokemore")
+	public String invokemore(){
+		return "views/invokemore";
+	}
+	
 }

@@ -1,0 +1,51 @@
+<div class="row">
+		<div class="col-lg-12">
+				<table id="invokechain_table" class="easyui-treegrid"></table>
+		</div>
+</div>
+<script>
+$(document).ready(function () {
+		$("#invokechain_table").treegrid({
+							title: '最慢的100条服务调用链',
+							url: '/invokemain',
+							method: 'get',
+							height: window.innerHeight-140,
+							width:100%,
+							nowrap: true,//数据过长时自动截取
+							striped: true,//交替显示背景色
+							collapsible: false, //显示可折叠按钮
+							singleSelect: true,//只能选择单行
+							fitColumns: true,//允许随父容器自动伸缩
+							pagination: true, //允许分页
+							rownumbers: true, //显示行号
+							editable:true,
+							animate: true,
+							idField:'id',
+							treeField:'application',
+							iconCls: 'icon-save', //图标
+							loadMsg: '请稍后,加载中……',
+							queryParams: {},
+							columns: [[
+						    	{field:'application', title: "应用名称", width: 150, align: 'left', sortable: true},    
+						    	{field:'ip', title: "ip地址", width: 80, align: 'center', sortable: true},
+						    	{field:'type', title: "类型", width: 80, align: 'center', sortable: true},
+							    {field:'status', title: "状态", width: 50, align: 'center', sortable: true},  
+							    {field:'method', title: "服务/方法", width: 200, align: 'left', sortable: true},
+							    {field:'timeelapsed', title: "调用时间", width: 50, align: 'left', sortable: true},
+							]],
+							onBeforeExpand:function(row, param){
+								if(row){
+									$(this).treegrid('options').url="/invokedetail";
+								}
+								return true; 
+							},
+							 onExpand : function(row){
+								 var children = $("#invokechain_table").treegrid('getChildren',row.id);
+								 if(children.length<=0){
+								 	row.leaf=true;
+								 	$("#invokechain_table").treegrid('refresh', row.id);
+								 }
+							}
+						});
+ })
+</script>

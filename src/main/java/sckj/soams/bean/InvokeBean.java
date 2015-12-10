@@ -27,6 +27,8 @@ public class InvokeBean {
 	
 	private String img;
 	
+	private String timeelapsed;
+	
 	private List<InvokeBean> children;
 	
 	public String getState() {
@@ -58,7 +60,6 @@ public class InvokeBean {
 		this.state = state;
 	}
 
-	private String timeelapsed;
 
 	public String getApplication() {
 		return application;
