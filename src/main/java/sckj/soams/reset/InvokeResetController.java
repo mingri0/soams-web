@@ -80,7 +80,7 @@ public class InvokeResetController {
 				String category = categorys.get(i);
 				seriesdata1.add(service.getInvokeCount(category));
 				seriesdata2.add(service.getInvokeErrorCount(category));
-				categorys.set(i, category.substring(12,16));
+				categorys.set(i, category.substring(11,16));
 			}
 			series.add(new Series("总调用次数", "line", seriesdata1));
 			

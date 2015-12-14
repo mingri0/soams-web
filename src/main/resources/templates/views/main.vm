@@ -89,6 +89,90 @@
                 </div>
             </div>
         </div>
+        <div class="row wrapper wrapper-content">
+                <div class="col-sm-4">
+                    <div class="ibox " style="hover:">
+                        <div class="ibox-host-title">
+                        	<div class="feed-element">
+                                                    <a href="profile.html" class="pull-left">
+                                                        <img alt="image" class="img-circle" src="img/serv.png">
+                                                    </a>
+                                                    <div class="media-body">
+                                                       <div>
+                                                        <h2 style="margin-top:0px;margin-bottom:5px;">服务器29</h2>
+                                                       </div>
+                                                        <i class="fa fa-circle online"></i><small class="text-muted"> 192.168.188.29</small>
+                                                    </div>
+                                                </div>
+                        </div>
+                        <div class="ibox-content">
+                            <h2>
+                                This is simple box container nr. 1
+                            </h2>
+                            <p>
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+                                remaining essentially unchanged.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="col-sm-4">
+                    <div class="ibox ">
+                        <div class="ibox-host-title">
+                        	<div class="feed-element">
+                                                    <a href="profile.html" class="pull-left">
+                                                       <img alt="image" class="img-circle" src="img/serv.png">
+                                                    </a>
+                                                    <div class="media-body">
+                                                       <div>
+                                                        <h2 style="margin-top:0px;margin-bottom:5px;">服务器29</h2>
+                                                       </div>
+                                                        <i class="fa fa-circle"></i><small class="text-muted"> 192.168.188.29</small>
+                                                    </div>
+                                                </div>
+                        </div>
+                        <div class="ibox-content">
+                            <h2>
+                                This is simple box container nr. 1
+                            </h2>
+                            <p>
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+                                remaining essentially unchanged.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+				 <div class="col-sm-4">
+                    <div class="ibox ">
+                        <div class="ibox-host-title">
+                        	<div class="feed-element">
+                                                    <a href="profile.html" class="pull-left">
+                                                       <img alt="image" class="img-circle" src="img/serv.png">
+                                                    </a>
+                                                    <div class="media-body">
+                                                       <div>
+                                                        <h2 style="margin-top:0px;margin-bottom:5px;">服务器29</h2>
+                                                       </div>
+                                                        <i class="fa fa-circle outline"></i><small class="text-muted"> 192.168.188.29</small>
+                                                    </div>
+                                                </div>
+                        </div>
+                        <div class="ibox-content">
+                            <h2>
+                                This is simple box container nr. 1
+                            </h2>
+                            <p>
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+                                remaining essentially unchanged.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <!-- Mainly scripts -->
