@@ -11,7 +11,7 @@
 			<property name="javaFileEncoding" value="UTF-8" />
 		</commentGenerator>
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://192.168.188.28/soams" userId="root"
+			connectionURL="jdbc:mysql://192.168.213.128/soams" userId="root"
 			password="123456">
 		</jdbcConnection>
 
@@ -24,12 +24,41 @@
 		<javaClientGenerator targetPackage="sckj.soams.mapping"
 			targetProject="soams-web" type="ANNOTATEDMAPPER">
 		</javaClientGenerator>
-		<table tableName="invokechain" domainObjectName="InvokeChain"
+		<table tableName="otherlogs" domainObjectName="OtherLogs"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false">
 			<property name="useActualColumnNames" value="true" />
 		</table>
-
+		<table tableName="host_cpu_info" domainObjectName="HostCpuInfo"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table tableName="host_cpu_logs" domainObjectName="HostCpuLogs"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table tableName="hosts" domainObjectName="Hosts"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table tableName="mem_swap_logs" domainObjectName="MemSwapLogs"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table tableName="memory_logs" domainObjectName="MemoryLogs"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
 	</context>
 </generatorConfiguration>

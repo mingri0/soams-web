@@ -150,7 +150,7 @@
                         , function () {
                             var val = {};
                             val[k] = $this.val();
-                            s.val(val);
+                            s.val("CPU<br/>"+val+"%");
                         }
                     );
                 });
@@ -246,7 +246,7 @@
 
             this.isInit = true;
 
-            this.$.val(this.o.format(this.v));
+            this.$.val(this.o.format(this.v)+"%");
             this._draw();
 
             return this;
@@ -715,7 +715,7 @@
 
         this.change = function (v) {
             this.cv = v;
-            this.$.val(this.o.format(v));
+            this.$.val(this.o.format(v)+"%");
         };
 
         this.angle = function (v) {

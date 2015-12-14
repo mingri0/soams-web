@@ -26,8 +26,8 @@
               <li>
                 <a href="#"><i class="fa fa-desktop"></i> <span class="nav-label">主机状态</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li><a href="contacts.html">192.168.188.28</a></li>
-                    <li><a href="profile.html">192.168.188.29</a></li>
+                    <li><a href="/hosts?hostid=1">192.168.188.28</a></li>
+                    <li><a href="/hosts?hostid=2">192.168.188.29</a></li>
                 </ul>
             </li>
             <li>

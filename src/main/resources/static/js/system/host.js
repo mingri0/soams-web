@@ -1,46 +1,11 @@
 $(function(){
-	initChart();
-	initSlow();
+	$('#tab-1').append("<div id=\"cpumain\" style=\"height:300px\" />");
+	initCpuChart();
+	initMemChart();
+	initDiskChart();
 })
 
-function initSlow(){
-	$.ajax({
-		type : "get",
-		url : "/invokeslow",
-		data : {},
-		dataType : "json", //返回数据形式为json
-		success : function(result) {
-			var lihtml = [];
-			$.each(result,function(i,data){
-				lihtml.push("<li class='list-group-item'>");
-				lihtml.push("<span class='pull-right'>");
-			    lihtml.push(data.timeelapsed);
-			    lihtml.push("</span>");
-			    lihtml.push("<span class='label "+getLevClass(i)+"'>");
-			    lihtml.push(i+1);
-			    lihtml.push("</span> ");
-			    lihtml.push("<a href='/invokedtlshow?'"+data.id+"> ");
-			    lihtml.push(data.method);
-			    lihtml.push("</a>");
-			    lihtml.push("</li>");
-			})
-			$('#ul_ph').append(lihtml.join('')+'');
-		}
-	});
-	
-}
-
-function getLevClass(ind){
-	switch(ind){
-	  case 0: return 'label-danger';
-	  case 1: return 'label-warning';
-	  case 2: return 'label-success';
-	  case 3: return 'label-info';
-	  case 4: return '';
-	}
-}
-
-function initChart(){
+function initCpuChart(){
 	var myChart;
 	var eCharts;
 	require.config({
@@ -57,14 +22,14 @@ function initChart(){
 	// 创建ECharts图表方法
 	function DrawEChart(ec) {
 		eCharts = ec;
-		myChart = eCharts.init(document.getElementById('main'));
+		myChart = eCharts.init(document.getElementById('cpumain'));
 		myChart.showLoading({
 			text : "图表数据正在努力加载..."
 		});
 		// 定义图表options
 		var options = {
 			title:{
-				text:"实时调用链统计",
+				text:"CPU",
 				textStyle:{
 					fontSize: 18,
 				    fontWeight: 'normal',
@@ -197,4 +162,12 @@ function getChartData() {
 		}
 	});
 	}
+}
+
+function initMemChart(){
+
+}
+
+function initDiskChart(){
+
 }

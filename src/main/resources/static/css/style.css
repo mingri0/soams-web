@@ -3123,6 +3123,23 @@ code {
   border-style: solid solid none;
   border-width: 1px 0px;
 }
+
+.ibox-host-title {
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  background-color: #ffffff;
+  border-color: #e7eaec;
+  border-image: none;
+  border-style: solid solid none;
+  border-width: 4px 0px 0;
+  color: inherit;
+  margin-bottom: 0;
+  padding: 9px 15px 7px;
+  height: 70px;
+}
+
 table.table-mail tr td {
   padding: 12px;
 }
@@ -4001,7 +4018,7 @@ a.compose-mail {
   margin-top: 0;
 }
 .feed-element {
-  padding-bottom: 15px;
+  padding-bottom: 0px;
 }
 .feed-element,
 .feed-element .media {
@@ -4016,8 +4033,14 @@ a.compose-mail {
 }
 .feed-element img.img-circle,
 .dropdown-messages-box img.img-circle {
-  width: 38px;
-  height: 38px;
+  width: 50px;
+  height: 50px;
+}
+.online{
+	color:#1ab394
+}
+.outline{
+	color:red;
 }
 .feed-element .well {
   border: 1px solid #e7eaec;
@@ -5030,4 +5053,13 @@ body.skin-3 {
   .welcome-message {
     display: none;
   }
+}
+
+.title-img {
+    float: left;
+    width: 120px;
+}
+
+.title-has-img {
+    margin-left: 135px;
 }
