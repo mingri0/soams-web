@@ -95,25 +95,28 @@
                         <div class="ibox-host-title">
                         	<div class="feed-element">
                                                     <a href="profile.html" class="pull-left">
-                                                        <img alt="image" class="img-circle" src="img/serv.png">
+                                                        <img alt="image" class="img-circle" src="img/windows.png">
                                                     </a>
                                                     <div class="media-body">
                                                        <div>
-                                                        <h2 style="margin-top:0px;margin-bottom:5px;">服务器29</h2>
+                                                        <h2 style="margin-top:0px;margin-bottom:5px;"><a href="profile.html">服务器29</a></h2>
                                                        </div>
                                                         <i class="fa fa-circle online"></i><small class="text-muted"> 192.168.188.29</small>
                                                     </div>
                                                 </div>
                         </div>
                         <div class="ibox-content">
-                            <h2>
-                                This is simple box container nr. 1
-                            </h2>
-                            <p>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-                                printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-                                remaining essentially unchanged.
-                            </p>
+                           <div class="row">
+                              <div class="col-sm-4" style="padding:0px;">
+                              	<div id="main" class="main" style="height:100px;"></div>
+                              </div>
+                              <div class="col-sm-4" style="padding:0px;">
+                              	<div id="main2" class="main" style="height:100px;"></div>
+                              </div>
+                              <div class="col-sm-4" style="padding:0px;">
+                              	<div id="main3" class="main" style="height:100px;"></div>
+                              </div>
+                           </div>
                         </div>
                     </div>
                 </div>
@@ -122,7 +125,7 @@
                         <div class="ibox-host-title">
                         	<div class="feed-element">
                                                     <a href="profile.html" class="pull-left">
-                                                       <img alt="image" class="img-circle" src="img/serv.png">
+                                                       <img alt="image" class="img-circle" src="img/ubuntu.png">
                                                     </a>
                                                     <div class="media-body">
                                                        <div>
@@ -133,14 +136,6 @@
                                                 </div>
                         </div>
                         <div class="ibox-content">
-                            <h2>
-                                This is simple box container nr. 1
-                            </h2>
-                            <p>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-                                printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-                                remaining essentially unchanged.
-                            </p>
                         </div>
                     </div>
                 </div>
@@ -149,7 +144,7 @@
                         <div class="ibox-host-title">
                         	<div class="feed-element">
                                                     <a href="profile.html" class="pull-left">
-                                                       <img alt="image" class="img-circle" src="img/serv.png">
+                                                       <img alt="image" class="img-circle" src="img/centos.png">
                                                     </a>
                                                     <div class="media-body">
                                                        <div>
@@ -160,14 +155,7 @@
                                                 </div>
                         </div>
                         <div class="ibox-content">
-                            <h2>
-                                This is simple box container nr. 1
-                            </h2>
-                            <p>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-                                printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-                                remaining essentially unchanged.
-                            </p>
+                            
                         </div>
                     </div>
                 </div>
@@ -212,7 +200,11 @@
 <script src="js/plugins/chartJs/Chart.min.js"></script>
 
 <!-- Toastr -->
-<script src="js/plugins/toastr/toastr.js"></script>
+<script src="js/plugins/toastr/toastr.min.js"></script>
+
+<script src="js/plugins/echarts/echarts.js"></script>
+
+<script src="js/system/main.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -224,9 +216,8 @@
                 timeOut: 4000
             };
             toastr.success('您最后一次登录：2015-12-01 14:23', '陈龙，欢迎使用 SOA+管理系统 ');
-
         }, 1300);
-
+   
 
         var data1 = [
             [0,4],[1,8],[2,5],[3,10],[4,4],[5,16],[6,5],[7,11],[8,6],[9,11],[10,30],[11,10],[12,13],[13,4],[14,3],[15,3],[16,6]

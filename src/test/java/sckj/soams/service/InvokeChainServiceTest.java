@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class InvokeChainServiceTest {
 	
 	@Autowired
 	private InvokeChainService service;
-	
+	@Ignore
 	@Test
 	public void testGetInvokeChainRecordsByPage() {
 		PageBean pb = new PageBean();
@@ -41,6 +42,7 @@ public class InvokeChainServiceTest {
 //		List<InvokeBean> ibList = service.getInvokeDetail("1");
 //		System.out.println(JSONObject.toJSONString(ibList));
 	}
+	@Ignore
 	@Test
 	public void testGetLastInvokeChainDt(){
 		String dt = service.getLastInvokeChain();

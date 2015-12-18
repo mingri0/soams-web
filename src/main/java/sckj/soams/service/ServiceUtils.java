@@ -36,4 +36,18 @@ public class ServiceUtils {
 		}
 		return dtList;
 	}
+	
+	public static double getRealValue(String input){
+		String val = input.replace("G","")
+				.replace("GB", "")
+				.replace("g", "")
+				.replace("M", "")
+				.replace("MB", "")
+				.replace("m", "")
+				.replace("K", "")
+				.replace("KB", "")
+				.replace("k", "")
+				.replace("%","");
+		return Double.parseDouble(val);
+	}
 }

@@ -1,4 +1,4 @@
-package sckj.soams.reset;
+package sckj.soams.rest;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,7 +24,7 @@ import sckj.soams.service.InvokeChainService;
 import sckj.soams.service.ServiceUtils;
 
 @RestController
-public class InvokeResetController {
+public class InvokeRestController {
 
 	@Autowired
 	private InvokeChainService service;
@@ -73,13 +73,13 @@ public class InvokeResetController {
 			List<String> legend = new ArrayList<String>(Arrays.asList(new String[]{"总调用次数","异常调用次数"}));//数据分组
 			List<String> categorys = ServiceUtils.getCategory(icdt,"1");
 			List<Series> series = new ArrayList<Series>();//纵坐标
-			List<Integer> seriesdata1 = new ArrayList<Integer>();
-			List<Integer> seriesdata2 = new ArrayList<Integer>();
+			List<Double> seriesdata1 = new ArrayList<Double>();
+			List<Double> seriesdata2 = new ArrayList<Double>();
 			int i = 0;
 			for(i=0;i<categorys.size();i++){
 				String category = categorys.get(i);
-				seriesdata1.add(service.getInvokeCount(category));
-				seriesdata2.add(service.getInvokeErrorCount(category));
+				seriesdata1.add(Double.valueOf(service.getInvokeCount(category).toString()));
+				seriesdata2.add(Double.valueOf(service.getInvokeErrorCount(category).toString()));
 				categorys.set(i, category.substring(11,16));
 			}
 			series.add(new Series("总调用次数", "line", seriesdata1));

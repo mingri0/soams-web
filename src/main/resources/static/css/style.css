@@ -5063,3 +5063,17 @@ body.skin-3 {
 .title-has-img {
     margin-left: 135px;
 }
+
+.sr-only2{
+	width: 1px;
+    height: 1px;
+    top: 0px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+.ng-binding{
+	font-size: 16px;
+}

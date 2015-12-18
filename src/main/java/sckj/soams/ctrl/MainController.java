@@ -10,6 +10,7 @@ public class MainController {
     public String main(){
         return "views/main";
     }
+    
     @RequestMapping("/skinconfig")
     public String skinConfig(){
         return "setting";

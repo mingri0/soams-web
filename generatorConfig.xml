@@ -11,7 +11,7 @@
 			<property name="javaFileEncoding" value="UTF-8" />
 		</commentGenerator>
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://192.168.213.128/soams" userId="root"
+			connectionURL="jdbc:mysql://192.168.188.28/soams" userId="root"
 			password="123456">
 		</jdbcConnection>
 
@@ -24,6 +24,7 @@
 		<javaClientGenerator targetPackage="sckj.soams.mapping"
 			targetProject="soams-web" type="ANNOTATEDMAPPER">
 		</javaClientGenerator>
+		<!-- 
 		<table tableName="otherlogs" domainObjectName="OtherLogs"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
@@ -55,6 +56,31 @@
 			<property name="useActualColumnNames" value="true" />
 		</table>
 		<table tableName="memory_logs" domainObjectName="MemoryLogs"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		 <table tableName="host_disk_info" domainObjectName="HostDiskInfo"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		 <table tableName="host_net_info" domainObjectName="HostNetInfo"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table tableName="host_net_logs" domainObjectName="HostNetLogs"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		
+		 -->
+		 <table tableName="menus" domainObjectName="Menus"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false">

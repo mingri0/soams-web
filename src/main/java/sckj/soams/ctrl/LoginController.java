@@ -9,8 +9,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class LoginController {
 
     @RequestMapping("/")
-    public String index( Model model ) {
-
+    public String index() {
         return "views/login";
+    }
+    
+    @RequestMapping("/logout")
+    public String logout(){
+    	return "views/login";
     }
 }

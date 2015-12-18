@@ -2,6 +2,8 @@ package sckj.soams.mapping;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
@@ -10,6 +12,8 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.type.JdbcType;
+
+import sckj.soams.bean.MemorySwapBean;
 import sckj.soams.entity.MemoryLogs;
 
 public interface MemoryLogsMapper {
@@ -97,4 +101,17 @@ public interface MemoryLogsMapper {
           "and hostid = #{hostid,jdbcType=VARCHAR}"
     })
     int updateByPrimaryKey(MemoryLogs record);
+
+    @Select({
+        "select recdt,mem,swap,memtot,swaptot from (select",
+        "a.recdt,a.used mem,a.total memtot,b.used swap,b.total swaptot",
+        "from memory_logs a,mem_swap_logs b",
+        "where a.hostid = #{hostid} and a.hostid=b.hostid and a.recdt=b.recdt order by recdt desc limit 0,#{size}) c order by recdt asc"
+    })
+    @Results({
+        @Result(column="recdt", property="recdt", jdbcType=JdbcType.TIMESTAMP, id=true),
+        @Result(column="mem", property="mem", jdbcType=JdbcType.VARCHAR, id=true),
+        @Result(column="swap", property="swap", jdbcType=JdbcType.VARCHAR)
+    })
+	List<MemorySwapBean> getLastMemLogs(Map<String, Object> map);
 }

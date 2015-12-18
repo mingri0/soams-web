@@ -2,6 +2,8 @@ package sckj.soams.mapping;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
@@ -10,6 +12,7 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.type.JdbcType;
+
 import sckj.soams.entity.HostCpuLogs;
 
 public interface HostCpuLogsMapper {
@@ -108,4 +111,22 @@ public interface HostCpuLogsMapper {
           "and hostid = #{hostid,jdbcType=VARCHAR}"
     })
     int updateByPrimaryKey(HostCpuLogs record);
+
+    @Select({
+    	"select recdt, hostid, user, sys, idle, wait, nice, combined",
+    	" from (select recdt, hostid, user, sys, idle, wait, nice, combined ",
+    	"  from host_cpu_logs where hostid=#{hostid} ",
+    	"order by recdt desc limit 0,#{size}) a order by a.recdt asc"
+    })
+    @Results({
+        @Result(column="recdt", property="recdt", jdbcType=JdbcType.TIMESTAMP, id=true),
+        @Result(column="hostid", property="hostid", jdbcType=JdbcType.VARCHAR, id=true),
+        @Result(column="user", property="user", jdbcType=JdbcType.VARCHAR),
+        @Result(column="sys", property="sys", jdbcType=JdbcType.VARCHAR),
+        @Result(column="idle", property="idle", jdbcType=JdbcType.VARCHAR),
+        @Result(column="wait", property="wait", jdbcType=JdbcType.VARCHAR),
+        @Result(column="nice", property="nice", jdbcType=JdbcType.VARCHAR),
+        @Result(column="combined", property="combined", jdbcType=JdbcType.VARCHAR)
+    })
+	List<HostCpuLogs> getLastCpuLogs(Map map);
 }
