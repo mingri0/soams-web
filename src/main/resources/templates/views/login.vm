@@ -31,12 +31,14 @@
         <p>登录试用一下吧，给我们提点意见。</p>
         <form class="m-t" role="form" action="/main">
             <div class="form-group">
-                <input type="email" class="form-control" placeholder="输入用户名" required="">
+                <input type="email" class="form-control" placeholder="输入用户名" required="" onfocus="clear_msg('loginname_msg');" id="loginname" name="loginname" />
+                <span class="required" id="loginname_msg"></span>
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" placeholder="输入密码" required="">
+                <input type="password" class="form-control" placeholder="输入密码" required="" onfocus="clear_msg('password_msg');" id="password" name="password" />
+                <span class="required" id="password_msg"></span>
             </div>
-            <button type="submit" class="btn btn-primary block full-width m-b">登录</button>
+            <button type="button" class="btn btn-primary block full-width m-b" onclick="checklogin();">登录</button>
             <a href="#"><small>忘记密码?</small></a>
         </form>
         <p class="m-t"> <small> 版权所有 杭州圣辰网络科技有限公司&copy; 2015 hzsckj.cn</small> </p>
@@ -47,6 +49,60 @@
 <script src="js/jquery-2.1.1.js"></script>
 <script src="js/bootstrap.min.js"></script>
 
+<script>
+function checklogin(){
+	var loginname = $("#loginname").val();
+	var password = $("#password").val();
+	if(kong(loginname) === ""){
+		$("#loginname_msg").text("请输入用户名.");
+		return;
+	}
+	$("#loginname_msg").text("");
+	if(kong(password) === ""){
+		$("#password_msg").text("请输入密码.");
+		return;
+	}
+	$("#password_msg").text("");
+	var param = {};
+	param.loginname=loginname;
+	param.password=password;
+	$.ajax({
+	    async: false,
+	    type : "post",
+	    url : '/login',
+	    data: param,
+	    dataType : 'json',
+	    complete: function(msg){
+	        //alert('complete');
+	    },
+	    success : function(data) {console.log(data);
+		    if(data.flag === 1){
+		    	$("#loginname_msg").text("用户名不存在.");
+			} else if(data.flag ===2) {
+				$("#password_msg").text("密码错误.");
+			} else if(data.flag ===0) {
+				//登录成功，跳转至主页
+				location.href = "/main";
+			}
+	    },
+	    error : function(msg){
+	    	console.log(msg);
+	    }
+	});
+}
+
+//清理错误信息
+function clear_msg(msg_id) {
+	$("#"+msg_id).text("");
+}
+
+function kong(val){
+	var result = val;
+	if (typeof val === 'undefined' || val === '' || val === 'undefined' || val === null) result = "";
+	return result;
+}
+
+</script>
 </body>
 
 </html>

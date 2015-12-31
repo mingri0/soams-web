@@ -1,5 +1,5 @@
 <nav class="navbar-default navbar-static-side" role="navigation">
-    <div class="sidebar-collapse">
+    <div id="left_menus" class="sidebar-collapse">
         <ul class="nav" id="side-menu">
             <li class="nav-header">
                 <div class="dropdown profile-element"> <span>
@@ -47,13 +47,13 @@
 		        		if(childlen>0){
 		        			childstr +='<ul class="nav nav-second-level">';
 		        			for(var j=0;j<childlen;j++){
-		        				childstr +='<li><a href="'+data[i].childMenus[j].menuUrl+'">'+data[i].childMenus[j].menuText+'</a></li>';
+		        				childstr +='<li id="'+data[i].childMenus[j].menuId+'"><a id="a_'+data[i].childMenus[j].menuId+'" href="'+data[i].childMenus[j].menuUrl+'">'+data[i].childMenus[j].menuText+'</a></li>';
 		        			}
 		        			childstr +='</ul>';
 		        			iconhtml = '<span class="fa arrow"></span>';
 		        		}
 		        		var url = kong(data[i].menuUrl) === ""?"#":data[i].menuUrl;
-		        		str +='<li id="main_"+i><a href="'+url+'"><i class="fa '+data[i].menuIcon+'"></i>' 
+		        		str +='<li id="'+data[i].menuId+'"><a id="a_'+data[i].menuId+'" href="'+url+'"><i class="fa '+data[i].menuIcon+'"></i>' 
 		        		+'<span class="nav-label">'+data[i].menuText+'</span>'+iconhtml+'</a>'+childstr+'</li>';
 		        	}
 		        	$("#side-menu").append(str);
@@ -65,19 +65,10 @@
 	    });
 	}
 	
-	/*function getLevelText(data){
-		var shtml = '<a href="'+data[i].childMenus[j].menuUrl+'">'+data[i].childMenus[j].menuText+'</a>';
-		return shtml;
-	}
-	
-	function getLevelIcon(){
-		var iconhtml = '<span class="fa arrow"></span>';
-		return iconhtml;
-	}*/
-	
 	function kong(val){
 		var result = val;
 		if (typeof val === 'undefined' || val === '' || val === 'undefined' || val === null) result = "";
 		return result;
 	}
+	
 </script>

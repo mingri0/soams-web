@@ -92,6 +92,7 @@
         <div id="zyfwq" class="row wrapper wrapper-content">
                 
         </div>
+        #parse("bottom.vm")
     </div>
 </div>
 <!-- Mainly scripts -->
@@ -291,7 +292,7 @@
 		        if(data){
 		        	len=data.length;
 		        	for(var i=0;i<len;i++){
-		        		var src = kong(data[i].osversion) === ""?"":("img/"+data[i].osversion+".png");
+		        		var src = kong(data[i].osversion) === ""?"":("img/"+data[i].osname.split(" ")[0]+".png");
 		        		var sclass="";
 		        		if(kong(data[i].status) === "1"){
 		        			sclass ="fa fa-circle online";

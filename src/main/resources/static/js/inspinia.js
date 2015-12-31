@@ -84,6 +84,26 @@ $(document).ready(function () {
 		// MetsiMenu
 	    $('#side-menu').metisMenu();
 	});
+	
+	
+	//给每个a标签添加点击事件
+	$("#left_menus").find("li").click(function(){
+		//移除a里面的样式
+		$("#left_menus").find("li").removeClass("active");
+		//当前选择的下标
+		var id = this.id;
+		//记录id
+		sessionStorage.setItem("current", id);
+		//同时添加记录样式
+		location.href=$("#a_"+id).attr("href");
+		return false;
+	});
+	
+	if (sessionStorage.getItem("current")!= null){
+		$('#'+sessionStorage.getItem("current")).parent().parent('li').addClass("active");
+	    $('#'+sessionStorage.getItem("current")).addClass("active");
+	    $('#side-menu').metisMenu();
+    }
 
 });
 
