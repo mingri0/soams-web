@@ -36,7 +36,7 @@ public class HostsRestController {
 	private HostDiskInfoService hostDiskInfoService;
 	
 	@RequestMapping("/hostslogs")
-	public String hostsInfoLogs(HostsBean hostsbean){
+	public List<HostsBean> hostsInfoLogs(HostsBean hostsbean){
 		List<HostsBean> hostslogs;
 		hostslogs = hostservice.getAll(hostsbean);
 		if(hostslogs != null && hostslogs.size()>0){
@@ -67,7 +67,7 @@ public class HostsRestController {
 		}
 		String data = JSON.toJSONString(hostslogs);
 		System.out.println(data);
-		return data;
+		return hostslogs;
 	}
 	
 	@RequestMapping("/hostslogsedit")

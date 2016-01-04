@@ -4,7 +4,7 @@ public class SysUser {
 	
 	private Long userid;
 	
-	private String logginname;
+	private String loginname;
 	
 	private String username;
 	
@@ -32,12 +32,12 @@ public class SysUser {
 		this.userid = userid;
 	}
 
-	public String getLogginname() {
-		return logginname;
+	public String getLoginname() {
+		return loginname;
 	}
 
-	public void setLogginname(String logginname) {
-		this.logginname = logginname;
+	public void setLoginname(String loginname) {
+		this.loginname = loginname;
 	}
 
 	public String getUsername() {

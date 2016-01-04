@@ -30,13 +30,14 @@
         </p>
         <p>登录试用一下吧，给我们提点意见。</p>
         <form class="m-t" role="form" action="/main">
-            <div class="form-group">
-                <input type="email" class="form-control" placeholder="输入用户名" required="" onfocus="clear_msg('loginname_msg');" id="loginname" name="loginname" />
-                <span class="required" id="loginname_msg"></span>
+            <div id="loginname_div" class="form-group text-left">
+                <input type="text" class="form-control" placeholder="输入用户名" required  onfocus="clear_msg('loginname');" id="loginname" name="loginname" />
+                <label id="loginname_msg" class="error" for="confirm" style="margin-top:5px;display:none;"></label>
             </div>
-            <div class="form-group">
-                <input type="password" class="form-control" placeholder="输入密码" required="" onfocus="clear_msg('password_msg');" id="password" name="password" />
-                <span class="required" id="password_msg"></span>
+            <div id="password_div" class="form-group text-left">
+                <input type="password" class="form-control" placeholder="输入密码" required onfocus="clear_msg('password');" id="password" name="password" />
+                <label id="password_msg" class="error" for="confirm" style="margin-top:5px;display:none;"></label>
+                <label id="loginname_password_msg"  class="error" for="confirm" style="margin-top:5px;display:none;"></label>
             </div>
             <button type="button" class="btn btn-primary block full-width m-b" onclick="checklogin();">登录</button>
             <a href="#"><small>忘记密码?</small></a>
@@ -54,15 +55,20 @@ function checklogin(){
 	var loginname = $("#loginname").val();
 	var password = $("#password").val();
 	if(kong(loginname) === ""){
-		$("#loginname_msg").text("请输入用户名.");
+		//$("#loginname").focus();
+		$("#loginname_div").addClass("has-error");
+		$("#loginname_div").attr("style","margin-bottom: 0px;");
+		$("#loginname_msg").css("display","");
+		$("#loginname_msg").text("用户名不能为空！");
 		return;
 	}
-	$("#loginname_msg").text("");
 	if(kong(password) === ""){
-		$("#password_msg").text("请输入密码.");
+		$("#password_div").addClass("has-error");
+		$("#password_div").attr("style","margin-bottom: 0px;");
+		$("#password_msg").css("display","");
+		$("#password_msg").text("密码不能为空！");
 		return;
 	}
-	$("#password_msg").text("");
 	var param = {};
 	param.loginname=loginname;
 	param.password=password;
@@ -76,13 +82,14 @@ function checklogin(){
 	        //alert('complete');
 	    },
 	    success : function(data) {console.log(data);
-		    if(data.flag === 1){
-		    	$("#loginname_msg").text("用户名不存在.");
-			} else if(data.flag ===2) {
-				$("#password_msg").text("密码错误.");
-			} else if(data.flag ===0) {
+		    if(data.flag === 0) {
 				//登录成功，跳转至主页
 				location.href = "/main";
+			} else {
+				//$("#loginname").focus();
+				$("#password_div").attr("style","margin-bottom: 0px;");
+		    	$("#loginname_password_msg").css("display","");
+		    	$("#loginname_password_msg").text("用户名或密码错误！");
 			}
 	    },
 	    error : function(msg){
@@ -93,7 +100,15 @@ function checklogin(){
 
 //清理错误信息
 function clear_msg(msg_id) {
-	$("#"+msg_id).text("");
+	$("#"+msg_id+"_div").removeClass("has-error");
+	$("#"+msg_id+"_div").attr("style",null);
+	$("#"+msg_id+"_msg").text("");
+	$("#"+msg_id+"_msg").css("display","none");
+	if($("#loginname_password_msg").is(':visible')){
+		$("#password_div").attr("style",null);
+		$("#loginname_password_msg").text("");
+		$("#loginname_password_msg").css("display","none");	
+	}
 }
 
 function kong(val){
@@ -102,7 +117,21 @@ function kong(val){
 	return result;
 }
 
+$("#loginname").keydown(function(event){
+    if(event.keyCode === 13){
+    	clear_msg('loginname');
+    	checklogin();
+    }
+});
+
+$("#password").keydown(function(event){
+    if(event.keyCode === 13){
+    	clear_msg('password');
+    	checklogin();
+    }
+});
+
+$("#loginname").focus();
 </script>
 </body>
-
 </html>

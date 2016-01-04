@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import sckj.soams.bean.EchartData;
 import sckj.soams.bean.Series;
-import sckj.soams.entity.HostCpuLogs;
 import sckj.soams.entity.HostNetLogs;
 import sckj.soams.service.HostNetLogsService;
 
