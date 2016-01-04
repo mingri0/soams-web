@@ -119,8 +119,21 @@ function kong(val){
 
 $("#loginname").keydown(function(event){
     if(event.keyCode === 13){
-    	clear_msg('loginname');
-    	checklogin();
+    	var loginname = $("#loginname").val();
+    	if(kong(loginname) === ""){
+    		//$("#loginname").focus();
+    		$("#loginname_div").addClass("has-error");
+    		$("#loginname_div").attr("style","margin-bottom: 0px;");
+    		$("#loginname_msg").css("display","");
+    		$("#loginname_msg").text("用户名不能为空！");
+    		return;
+    	} else {
+    		$("#loginname_div").removeClass("has-error");
+    		$("#loginname_div").attr("style",null);
+    		$("#loginname_msg").text("");
+    		$("#loginname_msg").css("display","none");	
+    		$("#password").focus();
+    	}
     }
 });
 
