@@ -143,16 +143,39 @@
 
 <script>
     $(document).ready(function() {
-        setTimeout(function() {
-            toastr.options = {
-                closeButton: true,
-                progressBar: true,
-                showMethod: 'slideDown',
-                timeOut: 4000
-            };
-            toastr.success('您最后一次登录：2015-12-01 14:23', '陈龙，欢迎使用 SOA+管理系统 ');
-        }, 1300);
-   
+    	
+    	setTimeout(function() {
+	            toastr.options = {
+	                closeButton: true,
+	                progressBar: true,
+	                showMethod: 'slideDown',
+	                timeOut: 4000
+	            };
+	            var dlrzxx = sessionStorage.getItem("dlrzxx");
+	            if(kong(dlrzxx) === 'true'){
+	            	var loginname = sessionStorage.getItem("loginname");
+	            	var param = {};
+	            	param.loginname = loginname;
+	            	if(kong(loginname)){
+	            		$.ajax({
+	            	        async: false,
+	            	        type : "post",
+	            	        url : '/getloginxx',
+	            	        data: param,
+	            	        dataType : 'json',
+	            	        complete: function(msg){
+	            	            //alert('complete');
+	            	        },
+	            	        success : function(data) {console.log(data);
+	            	        	if(data){
+	            	        		sessionStorage.setItem("dlrzxx",false);
+	            	        		toastr.success('您上一次登录：'+kong(data.logindt), (kong(data.username)===''?'':data.username+',')+'欢迎使用 SOA+管理系统 ');
+	            	        	}
+	            	        }
+	            	    });
+	            	}
+	            }
+	        }, 1300);
 
         var data1 = [
             [0,4],[1,8],[2,5],[3,10],[4,4],[5,16],[6,5],[7,11],[8,6],[9,11],[10,30],[11,10],[12,13],[13,4],[14,3],[15,3],[16,6]
@@ -273,6 +296,7 @@
         var Polarchart = new Chart(ctx).PolarArea(polarData, polarOptions);
         
         initym();
+        savedlrz();
       });
     
     function initym(){
@@ -337,6 +361,33 @@
     		initChart({id:'main'+i+'_1',name:'cpu',val:data[i].map.cpu});
     		initChart({id:'main'+i+'_2',name:'内存',val:data[i].map.memory});
     		initChart({id:'main'+i+'_3',name:'磁盘',val:data[i].map.disk});
+    	}
+    }
+    
+    function savedlrz(){
+    	//获取浏览器发送的userAgent信息   
+    	var userAgentInfo = navigator.userAgent.toLowerCase();
+    	var loginname = sessionStorage.getItem("loginname");
+    	var dlrzflag = sessionStorage.getItem("dlrzflag");
+    	var param = {};
+    	param.userAgentInfo = userAgentInfo;
+    	param.loginname = loginname;
+    	if(kong(dlrzflag) === 'true'){
+    		$.ajax({
+    	        async: false,
+    	        type : "post",
+    	        url : '/saveloginlogs',
+    	        data: param,
+    	        dataType : 'json',
+    	        complete: function(msg){
+    	            //alert('complete');
+    	        },
+    	        success : function(data) {
+    	        	if(data === 1){
+    	        		sessionStorage.setItem("dlrzflag",false);
+    	        	}
+    	        }
+    	    });
     	}
     }
 </script>

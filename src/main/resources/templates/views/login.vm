@@ -81,8 +81,11 @@ function checklogin(){
 	    complete: function(msg){
 	        //alert('complete');
 	    },
-	    success : function(data) {console.log(data);
-		    if(data.flag === 0) {
+	    success : function(data) {
+		    if(data === 0) {
+		    	sessionStorage.setItem("loginname",loginname);
+		    	sessionStorage.setItem("dlrzflag",true);
+		    	sessionStorage.setItem("dlrzxx",true);
 				//登录成功，跳转至主页
 				location.href = "/main";
 			} else {
