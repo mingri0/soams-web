@@ -1,4 +1,5 @@
 #parse("header.vm")
+<link href="css/plugins/switchery/switchery.css" rel="stylesheet">
 <div id="wrapper">
     #parse("leftmenu.vm")
     <div id="page-wrapper" class="gray-bg dashbard-1">
@@ -88,12 +89,47 @@
 
                 </div>
             </div>
+            #parse("bottom.vm")
+        </div>
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>图表与表格切换</h5>
+                
+                <div class="ibox-tools">
+                	<input id="bgorst" type="checkbox" class="js-switch" checked onchange="bgorst();" />
+                </div>
+            </div>
         </div>
         <div id="zyfwq" class="row wrapper wrapper-content">
-                
+             
         </div>
-        #parse("bottom.vm")
-    </div>
+        <div id="zyfwq_bg" class="row wrapper wrapper-content" style="display:none;">
+        	<div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    
+                    <div class="ibox-content">
+
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Data</th>
+                                <th>服务器名称</th>
+                                <th>IP</th>
+                                <th>CPU使用率</th>
+                                <th>内存使用率</th>
+                                <th>磁盘使用率</th>
+                            </tr>
+                            </thead>
+                            <tbody id="bg_tbody">
+                            
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+         </div>   
+     </div>
 </div>
 <!-- Mainly scripts -->
 <script src="js/jquery-2.1.1.js"></script>
@@ -108,9 +144,6 @@
 <script src="js/plugins/flot/jquery.flot.resize.js"></script>
 <script src="js/plugins/flot/jquery.flot.pie.js"></script>
 
-<!-- Peity -->
-<script src="js/plugins/peity/jquery.peity.min.js"></script>
-<script src="js/demo/peity-demo.js"></script>
 
 <script src="js/plugins/pace/pace.min.js"></script>
 
@@ -132,14 +165,17 @@
 <!-- Toastr -->
 <script src="js/plugins/toastr/toastr.min.js"></script>
 
+<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+<!-- Switchery -->
+<script src="js/plugins/switchery/switchery.js"></script>
+
 <script src="js/plugins/echarts/echarts.js"></script>
+   
+<script src="js/system/main.js"></script>
 
 <!-- Custom and plugin javascript -->
 <script src="js/inspinia.js"></script>
-
-<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-
-<script src="js/system/main.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -297,6 +333,9 @@
         
         initym();
         savedlrz();
+        var elem = document.querySelector('.js-switch');
+        var switchery = new Switchery(elem, { color: '#1AB394' });
+        
       });
     
     function initym(){
@@ -312,8 +351,10 @@
 	        },
 	        success : function(data) {console.log(data);
 	        	var str="";
+	        	var str_bg="";
 	        	var len=0;
 		        if(data){
+		        	var div1_bg="",div2_bg="";
 		        	len=data.length;
 		        	for(var i=0;i<len;i++){
 		        		var src = kong(data[i].osversion) === ""?"":("img/"+data[i].osname.split(" ")[0]+".png");
@@ -342,9 +383,16 @@
 		        		
 		        		str +='<div class="col-sm-4"><div class="ibox " style="hover:">'+div1+div2+'</div></div>';
 		        		
+		        		div2_bg +='<tr><td>'+(i+1)+'</td><td><span class="pie">'+kong(data[i].map.cpu)+','+(100-kong(data[i].map.cpu))+'</span> '
+		        		+'<span class="pie">'+kong(data[i].map.memory)+','+(100-kong(data[i].map.memory))+'</span> '
+		        		+'<span class="pie">'+kong(data[i].map.disk)+','+(100-kong(data[i].map.disk))+'</span></td><td><a href="'+"hosts?hostid="+data[i].hostid+'" >'+kong(data[i].othername)+'</a></td>'
+		        		+'<td>'+kong(data[i].ip)+'</td><td class="text-navy"> <i class="fa fa-level-up"></i> '+kong(data[i].map.cpu)+' </td>'
+                        +'<td class="text-navy"> <i class="fa fa-level-up"></i> '+kong(data[i].map.memory)
+                        +' </td><td class="text-navy"> <i class="fa fa-level-up"></i> '+kong(data[i].map.disk)+' </td></tr>';
 		        	}
 		        	$("#zyfwq").append(str);
 			    	setmenu(data);
+		        	$("#bg_tbody").append(div2_bg);
 		        }
 	        }
 	    });
@@ -390,5 +438,21 @@
     	    });
     	}
     }
+    
+    function bgorst(){
+    	    if($('#bgorst').attr("checked") === 'checked'){
+    	    	$("#zyfwq").attr("style","display:none;");
+        		$("#zyfwq_bg").attr("style","");
+        		$('#bgorst').attr('checked',false); 
+    	    }else{
+	    	    $("#zyfwq").attr("style","");
+	    		$("#zyfwq_bg").attr("style","display:none;");
+	    		$('#bgorst').attr('checked',true); 
+    	    }  
+    }
 </script>
+
+<!-- Peity -->
+<script src="js/plugins/peity/jquery.peity.min.js"></script>
+<script src="js/demo/peity-demo.js"></script>
 #parse("footer.vm")
