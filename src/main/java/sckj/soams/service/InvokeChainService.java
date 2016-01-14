@@ -52,6 +52,24 @@ public class InvokeChainService {
 		}
 		return ibList;
 	}
+	
+	public List<InvokeBean> getInvokeMainmx(String id) {
+		List<InvokeBean> ibList = new ArrayList<InvokeBean>();
+		List<InvokeChain> icList = getInvokeSlowmx(id);
+		for (InvokeChain ic : icList) {
+			InvokeBean ib = new InvokeBean();
+			ib.setApplication(ic.getApplication());
+			ib.setId("i_"+ic.getInvoke_seq().toString());
+			ib.setIp(ic.getIp());
+			ib.setMethod(ic.getRequesturl());
+			ib.setStatus(ic.getStatus());
+			ib.setState("closed");
+			ib.setTimeelapsed(ic.getTimeelapsed());
+			ib.setType(ic.getType());
+			ibList.add(ib);
+		}
+		return ibList;
+	}
 
 	public List<InvokeBean> getInvokeDetail(String invokeseq) {
 		Long invoke_seq = Long.parseLong(invokeseq);
@@ -103,7 +121,7 @@ public class InvokeChainService {
 		for (InvokeChainBean icb : ibList1) {// eg service
 			if (Integer.parseInt(icb.getInd()) > Integer.parseInt(picb.getInd())
 					&& Integer.parseInt(icb.getInd()) < Integer
-							.parseInt(StringUtils.isBlank(picb.getNextind()) ? "999999"
+							.parseInt(StringUtils.isBlank(icb.getNextind()) ? "999999"
 									: icb.getNextind())) {
 				InvokeBean ib = fillInvokeBean(icb);
 				ib.setChildren(getChildInvokeChain(icb, icbList));
@@ -211,6 +229,10 @@ public class InvokeChainService {
 
 	public List<InvokeChain> getInvokeSlow(PageBean pb) {
 		return mapper.selectInvokeSlowRecordsByPage(pb);
+	}
+	
+	public List<InvokeChain> getInvokeSlowmx(String id) {
+		return mapper.selectInvokeSlowRecordsById(id);
 	}
 
 }

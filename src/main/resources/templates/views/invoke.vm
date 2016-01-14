@@ -12,15 +12,16 @@
 		       <div class="col-lg-3">
 		       	<h2 style="margin-top:0px;">最耗时请求排行</h2>
                 <small>统计显示当天前5位最耗时请求</small>
+                <input id="param_mx" type="hidden" />
                 <button id="btnmore" class="btn btn-primary btn-xs m-l-sm pull-right" type="button" data-toggle="modal" data-target="#myModal5" title="查看更多耗时的调用链">更多</button>
                 <div class="modal inmodal fade" id="myModal5" tabindex="-1" role="dialog"  aria-hidden="true">
                       <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                            <h4 class="modal-title">Top100最慢的调用链</h4>
+                                            <h4 class="modal-title">Top10最慢的调用链</h4>
                                         </div>
-                                        <div class="modal-body" style="padding: 15px;">
+                                        <div id="modal-body" class="modal-body" style="padding: 15px;">
                                            
                                         </div>
 
@@ -30,6 +31,23 @@
                                     </div>
                                 </div>
                             </div>
+                <div class="modal inmodal fade" id="myModal5mx" tabindex="-1" role="dialog"  aria-hidden="true">
+                      <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title">详细调用链</h4>
+                            </div>
+                            <div id="modal-bodymx" class="modal-body" style="padding: 15px;">
+                               
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-white" data-dismiss="modal">关 闭</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <ul id="ul_ph" class="list-group clear-list m-t">
                     
                 </ul>
@@ -118,14 +136,23 @@
 	$('#myModal5').on('shown.bs.modal', function() {
 		if($('#invokechain_table')==null||$('#invokechain_table').length==0){
 			var html = "<table id=\"invokechain_table\" class=\"easyui-treegrid\" style=\"width:100%\"></table>"
-  	    	$('.modal-body').append(html);
+  	    	$('#modal-body').append(html);
   	    }
   	    initGridData();
   	});	
+	$('#myModal5mx').on('shown.bs.modal', function() {
+		if($('#invokechain_tablemx')==null||$('#invokechain_tablemx').length==0){
+			var htmlmx = "<table id=\"invokechain_tablemx\" class=\"easyui-treegrid\" style=\"width:100%\"></table>"
+  	    	$('#modal-bodymx').append(htmlmx);
+  	    }
+		initGridDataDetail($("#param_mx").val());
+		$("#param_mx").val("");
+  	});	
  })
+ 
  function initGridData(){
  	$("#invokechain_table").treegrid({
-							title: '最慢的100条服务调用链',
+							title: '最慢的10条服务调用链',
 							url: '/invokemain',
 							method: 'get',
 							height: window.innerHeight-250,
@@ -142,7 +169,7 @@
 							treeField:'application',
 							iconCls: 'icon-save', //图标
 							loadMsg: '请稍后,加载中……',
-							queryParams: {},
+							queryParams: {id: $("#param_id").val()},
 							columns: [[
 						    	{field:'application', title: "应用名称", width: 150, align: 'left', sortable: true},    
 						    	{field:'ip', title: "ip地址", width: 80, align: 'center', sortable: true},
@@ -166,5 +193,53 @@
 							}
 						});
  }
+  
+ function getParam(val){
+ 	$("#param_mx").val(val);
+ }
+ 
+ function initGridDataDetail(val){
+	 	$("#invokechain_tablemx").treegrid({
+								title: '明细服务调用链',
+								url: '/invokemainmx',
+								method: 'get',
+								height: window.innerHeight-250,
+								nowrap: true,//数据过长时自动截取
+								striped: true,//交替显示背景色
+								collapsible: false, //显示可折叠按钮
+								singleSelect: true,//只能选择单行
+								fitColumns: true,//允许随父容器自动伸缩
+								pagination: true, //允许分页
+								rownumbers: true, //显示行号
+								editable:true,
+								animate: true,
+								idField:'id',
+								treeField:'application',
+								iconCls: 'icon-save', //图标
+								loadMsg: '请稍后,加载中……',
+								queryParams: {id: val},
+								columns: [[
+							    	{field:'application', title: "应用名称", width: 150, align: 'left', sortable: true},    
+							    	{field:'ip', title: "ip地址", width: 80, align: 'center', sortable: true},
+							    	{field:'type', title: "类型", width: 80, align: 'center', sortable: true},
+								    {field:'status', title: "状态", width: 50, align: 'center', sortable: true},  
+								    {field:'method', title: "服务/方法", width: 200, align: 'left', sortable: true},
+								    {field:'timeelapsed', title: "调用时间", width: 50, align: 'left', sortable: true},
+								]],
+								onBeforeExpand:function(row, param){
+									if(row){
+										$(this).treegrid('options').url="/invokedetail";
+									}
+									return true; 
+								},
+								 onExpand : function(row){
+									 var children = $("#invokechain_tablemx").treegrid('getChildren',row.id);
+									 if(children.length<=0){
+									 	row.leaf=true;
+									 	$("#invokechain_tablemx").treegrid('refresh', row.id);
+									 }
+								}
+							});
+	 }
 </script>
 #parse("footer.vm")

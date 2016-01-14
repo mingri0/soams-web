@@ -19,15 +19,17 @@ function initSlow(){
 			    lihtml.push("<span class='label "+getLevClass(i)+"'>");
 			    lihtml.push(i+1);
 			    lihtml.push("</span> ");
-			    lihtml.push("<a href='/invokedtlshow?'"+data.id+"> ");
+//			    lihtml.push("<a href='/invokedtlshow?'"+data.id+"> ");
+			    lihtml.push("<button onclick=\"getParam('"+data.id+"')\" class='btn btn-primary btn-xs m-l-sm pull-left mycheck' type='button' data-toggle='modal' data-target='#myModal5mx' " +
+			    		"title='查看更多耗时的调用链'> ");
 			    lihtml.push(data.method);
-			    lihtml.push("</a>");
+//			    lihtml.push("</a>");
+			    lihtml.push("</button>");
 			    lihtml.push("</li>");
 			})
 			$('#ul_ph').append(lihtml.join('')+'');
 		}
 	});
-	
 }
 
 function getLevClass(ind){

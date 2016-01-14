@@ -29,9 +29,16 @@ public class InvokeRestController {
 	 * @return
 	 */
 	@RequestMapping("/invokemain")
-	public UiTreeGrid invokeList(PageBean pb){
+	public UiTreeGrid invokeList(PageBean pb, String id){
 		pb.setEnd(10);
 		List<InvokeBean> idList = service.getInvokeMain(pb);
+		UiTreeGrid grid = new UiTreeGrid(idList);
+		return grid;
+	}
+	
+	@RequestMapping("/invokemainmx")
+	public UiTreeGrid invokeListmx(String id){
+		List<InvokeBean> idList = service.getInvokeMainmx(id.replace("i_", ""));
 		UiTreeGrid grid = new UiTreeGrid(idList);
 		return grid;
 	}

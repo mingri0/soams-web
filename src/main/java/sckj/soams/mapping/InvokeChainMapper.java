@@ -218,4 +218,25 @@ public interface InvokeChainMapper {
     	" exists(select 1 from invokechain where traceid=a.traceid and status!='OK') "
     })
 	int getInvokeErrorCount(@Param("category") String category);
+    
+    @Select({
+    	"SELECT * FROM invokechain  WHERE rpcid='0.1' AND TYPE='CONTROLLER' AND invoke_seq=#{id} "
+    })
+    @Results({
+        @Result(column="invoke_seq", property="invoke_seq", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="invoke_dt", property="invoke_dt", jdbcType=JdbcType.VARCHAR),
+        @Result(column="application", property="application", jdbcType=JdbcType.VARCHAR),
+        @Result(column="fromip", property="fromip", jdbcType=JdbcType.VARCHAR),
+        @Result(column="ip", property="ip", jdbcType=JdbcType.VARCHAR),
+        @Result(column="traceid", property="traceid", jdbcType=JdbcType.VARCHAR),
+        @Result(column="fromrpcid", property="fromrpcid", jdbcType=JdbcType.VARCHAR),
+        @Result(column="rpcid", property="rpcid", jdbcType=JdbcType.VARCHAR),
+        @Result(column="method", property="method", jdbcType=JdbcType.VARCHAR),
+        @Result(column="status", property="status", jdbcType=JdbcType.VARCHAR),
+        @Result(column="type", property="type", jdbcType=JdbcType.VARCHAR),
+        @Result(column="requesturl", property="requesturl", jdbcType=JdbcType.VARCHAR),
+        @Result(column="timeelapsed", property="timeelapsed", jdbcType=JdbcType.VARCHAR),
+        @Result(column="createdt", property="createdt", jdbcType=JdbcType.TIMESTAMP)
+    })
+    List<InvokeChain> selectInvokeSlowRecordsById(String id);
 }

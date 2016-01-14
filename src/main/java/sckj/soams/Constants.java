@@ -26,11 +26,11 @@ public class Constants {
 		switch (application) {
 		case "EBS":
 			return WEB_INVOKE_CHAIN;
-		case "ERP-SERVICE-USER":
+		case "SOA-SERVICE-USER":
 			return SERVICE_INVOKE_CHAIN;
-		case "ERP-SERVICE-STOCK":
+		case "SOA-SERVICE-STOCK":
 			return SERVICE_INVOKE_CHAIN;
-		case "ERP-SERVICE-ORDER":
+		case "SOA-SERVICE-ORDER":
 			return SERVICE_INVOKE_CHAIN;
 		default:
 			return WEB_INVOKE_CHAIN;
